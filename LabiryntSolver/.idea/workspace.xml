@@ -5,14 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="841e8135-f197-444f-bf6f-682385889f0c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/labiryntsolver/Maze.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/labiryntsolver/AlgorithmPageController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/labiryntsolver/algorithm-page.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/labiryntsolver/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/labiryntsolver/HelloController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/labiryntsolver/MazeGenerator.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/labiryntsolver/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/labiryntsolver/hello-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/labiryntsolver/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/labiryntsolver/MainApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/labiryntsolver/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/labiryntsolver/GeneratePageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/labiryntsolver/Maze.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/labiryntsolver/Maze.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/labiryntsolver/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/labiryntsolver/generate-page.fxml" afterDir="false" />
     </list>
     <list id="6afaaa4a-e50b-47e7-8060-3775c1f0b622" name="Changes by Bartek" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/labiryntsolver/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/labiryntsolver/HelloController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/labiryntsolver/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/labiryntsolver/MainApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/labiryntsolver/Maze.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/labiryntsolver/Maze.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,7 +26,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="FxmlFile" />
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -30,12 +36,52 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/src/main/java/com/example/labiryntsolver/HelloController.java">
+    <file path="$PROJECT_DIR$/src/main/java/com/example/labiryntsolver/MainApplication.java">
       <ranges>
-        <range start1="3" end1="4" start2="3" end2="7" changelist="6afaaa4a-e50b-47e7-8060-3775c1f0b622" />
-        <range start1="7" end1="9" start2="10" end2="11" changelist="6afaaa4a-e50b-47e7-8060-3775c1f0b622" />
-        <range start1="10" end1="12" start2="12" end2="18" changelist="6afaaa4a-e50b-47e7-8060-3775c1f0b622" />
-        <range start1="13" end1="13" start2="19" end2="29" changelist="841e8135-f197-444f-bf6f-682385889f0c" />
+        <range start1="9" end1="10" start2="9" end2="15" changelist="841e8135-f197-444f-bf6f-682385889f0c" />
+        <range start1="12" end1="16" start2="17" end2="25" changelist="6afaaa4a-e50b-47e7-8060-3775c1f0b622" />
+        <range start1="17" end1="17" start2="26" end2="33" changelist="841e8135-f197-444f-bf6f-682385889f0c" />
+        <range start1="19" end1="19" start2="35" end2="44" changelist="841e8135-f197-444f-bf6f-682385889f0c" />
+      </ranges>
+    </file>
+    <file path="$PROJECT_DIR$/src/main/java/com/example/labiryntsolver/Maze.java">
+      <ranges>
+        <range start1="2" end1="5" start2="2" end2="3" changelist="841e8135-f197-444f-bf6f-682385889f0c" />
+        <range start1="12" end1="12" start2="10" end2="11" changelist="6afaaa4a-e50b-47e7-8060-3775c1f0b622" />
+        <range start1="15" end1="15" start2="14" end2="15" changelist="841e8135-f197-444f-bf6f-682385889f0c" />
+        <range start1="16" end1="16" start2="16" end2="31" changelist="841e8135-f197-444f-bf6f-682385889f0c" />
+        <range start1="30" end1="31" start2="45" end2="46" changelist="6afaaa4a-e50b-47e7-8060-3775c1f0b622" />
+        <range start1="39" end1="41" start2="54" end2="57" changelist="841e8135-f197-444f-bf6f-682385889f0c" />
+        <range start1="43" end1="44" start2="59" end2="60" changelist="841e8135-f197-444f-bf6f-682385889f0c" />
+        <range start1="48" end1="49" start2="64" end2="65" changelist="841e8135-f197-444f-bf6f-682385889f0c" />
+        <range start1="52" end1="53" start2="68" end2="69" changelist="841e8135-f197-444f-bf6f-682385889f0c" />
+        <range start1="57" end1="58" start2="73" end2="74" changelist="841e8135-f197-444f-bf6f-682385889f0c" />
+        <range start1="59" end1="60" start2="75" end2="77" changelist="841e8135-f197-444f-bf6f-682385889f0c" />
+        <range start1="66" end1="68" start2="83" end2="85" changelist="6afaaa4a-e50b-47e7-8060-3775c1f0b622" />
+        <range start1="69" end1="70" start2="86" end2="87" changelist="6afaaa4a-e50b-47e7-8060-3775c1f0b622" />
+        <range start1="72" end1="73" start2="89" end2="90" changelist="6afaaa4a-e50b-47e7-8060-3775c1f0b622" />
+        <range start1="75" end1="76" start2="92" end2="93" changelist="6afaaa4a-e50b-47e7-8060-3775c1f0b622" />
+        <range start1="78" end1="79" start2="95" end2="96" changelist="6afaaa4a-e50b-47e7-8060-3775c1f0b622" />
+        <range start1="80" end1="81" start2="97" end2="98" changelist="6afaaa4a-e50b-47e7-8060-3775c1f0b622" />
+        <range start1="83" end1="84" start2="100" end2="101" changelist="6afaaa4a-e50b-47e7-8060-3775c1f0b622" />
+        <range start1="85" end1="85" start2="102" end2="105" changelist="6afaaa4a-e50b-47e7-8060-3775c1f0b622" />
+        <range start1="86" end1="87" start2="106" end2="107" changelist="6afaaa4a-e50b-47e7-8060-3775c1f0b622" />
+        <range start1="90" end1="92" start2="110" end2="112" changelist="6afaaa4a-e50b-47e7-8060-3775c1f0b622" />
+        <range start1="94" end1="95" start2="114" end2="115" changelist="6afaaa4a-e50b-47e7-8060-3775c1f0b622" />
+        <range start1="96" end1="97" start2="116" end2="117" changelist="6afaaa4a-e50b-47e7-8060-3775c1f0b622" />
+        <range start1="99" end1="100" start2="119" end2="120" changelist="6afaaa4a-e50b-47e7-8060-3775c1f0b622" />
+        <range start1="101" end1="102" start2="121" end2="122" changelist="6afaaa4a-e50b-47e7-8060-3775c1f0b622" />
+        <range start1="104" end1="105" start2="124" end2="125" changelist="6afaaa4a-e50b-47e7-8060-3775c1f0b622" />
+        <range start1="106" end1="107" start2="126" end2="127" changelist="6afaaa4a-e50b-47e7-8060-3775c1f0b622" />
+        <range start1="109" end1="110" start2="129" end2="130" changelist="6afaaa4a-e50b-47e7-8060-3775c1f0b622" />
+        <range start1="116" end1="116" start2="136" end2="137" changelist="6afaaa4a-e50b-47e7-8060-3775c1f0b622" />
+        <range start1="128" end1="131" start2="149" end2="154" changelist="6afaaa4a-e50b-47e7-8060-3775c1f0b622" />
+        <range start1="136" end1="136" start2="159" end2="163" changelist="6afaaa4a-e50b-47e7-8060-3775c1f0b622" />
+        <range start1="140" end1="140" start2="167" end2="171" changelist="6afaaa4a-e50b-47e7-8060-3775c1f0b622" />
+        <range start1="144" end1="159" start2="175" end2="176" changelist="6afaaa4a-e50b-47e7-8060-3775c1f0b622" />
+        <range start1="162" end1="164" start2="179" end2="189" changelist="6afaaa4a-e50b-47e7-8060-3775c1f0b622" />
+        <range start1="165" end1="170" start2="190" end2="192" changelist="6afaaa4a-e50b-47e7-8060-3775c1f0b622" />
+        <range start1="171" end1="172" start2="193" end2="193" changelist="6afaaa4a-e50b-47e7-8060-3775c1f0b622" />
       </ranges>
     </file>
   </component>
@@ -44,15 +90,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.ide.settings.new.ui&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "git-widget-placeholder": "main",
+    "settings.editor.selected.configurable": "reference.settings.ide.settings.new.ui"
   }
-}</component>
+}]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
