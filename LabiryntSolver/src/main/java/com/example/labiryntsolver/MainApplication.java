@@ -10,21 +10,20 @@ import java.io.IOException;
 public class MainApplication extends Application {
     private Stage stage;
     private Scene generatePage, algorithmPage;
-    GeneratePageController generatePageController;
-    AlgorithmPageController algorithmPageController;
+    private GeneratePageController generatePageController;
+    private AlgorithmPageController algorithmPageController;
 
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader generatePageLoader = new FXMLLoader(MainApplication.class.getResource("generate-page.fxml"));
         FXMLLoader algorithmPageLoader = new FXMLLoader(MainApplication.class.getResource("algorithm-page.fxml"));
-
         generatePage = new Scene(generatePageLoader.load(), 1080, 720);
         algorithmPage = new Scene(algorithmPageLoader.load(), 1080, 720);
-
         stage.setTitle("LabiryntSolver");
         stage.setScene(generatePage);
         stage.show();
         this.stage = stage;
+
 
         generatePageController = generatePageLoader.getController();
         generatePageController.setMainApplicationReference(this);

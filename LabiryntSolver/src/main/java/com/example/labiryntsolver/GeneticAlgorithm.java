@@ -113,26 +113,14 @@ class Solution {
     public int fitness(Maze maze) {
         int i = 0, j = 0;
         for (Direction direction: directionList) {
+            if(!maze.getPossibleDirections(i, j).contains(direction)) break;
             switch (direction) {
-                case UP -> {
-                    if(!maze.getPossibleDirections(i - 1, j).contains(Direction.UP)) break;
-                    i--;
-                }
-                case DOWN -> {
-                    if(!maze.getPossibleDirections(i + 1, j).contains(Direction.DOWN)) break;
-                    i++;
-                }
-                case LEFT -> {
-                    if(!maze.getPossibleDirections(i, j - 1).contains(Direction.LEFT)) break;
-                    j--;
-                }
-                case RIGHT -> {
-                    if(!maze.getPossibleDirections(i, j + 1).contains(Direction.RIGHT)) break;
-                    j++;
-                }
+                case UP -> i--;
+                case DOWN -> i++;
+                case LEFT -> j--;
+                case RIGHT -> j++;
             }
         }
-
         return maze.getDistanceToEnd(i, j);
     }
 
