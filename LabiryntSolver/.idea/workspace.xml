@@ -4,19 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="841e8135-f197-444f-bf6f-682385889f0c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/labiryntsolver/AlgorithmPageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/labiryntsolver/AlgorithmPageController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/labiryntsolver/Direction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/labiryntsolver/Direction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/labiryntsolver/GeneratePageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/labiryntsolver/GeneratePageController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/labiryntsolver/GeneticAlgorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/labiryntsolver/GeneticAlgorithm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/labiryntsolver/Maze.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/labiryntsolver/Maze.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/labiryntsolver/algorithm-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/labiryntsolver/algorithm-page.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/labiryntsolver/generate-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/labiryntsolver/generate-page.fxml" afterDir="false" />
-    </list>
-    <list id="6afaaa4a-e50b-47e7-8060-3775c1f0b622" name="Changes by Bartek" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/labiryntsolver/GeneticAlgorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/labiryntsolver/GeneticAlgorithm.java" afterDir="false" />
-    </list>
+    <list default="true" id="841e8135-f197-444f-bf6f-682385889f0c" name="Changes" comment="" />
+    <list id="6afaaa4a-e50b-47e7-8060-3775c1f0b622" name="Changes by Bartek" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -33,32 +22,6 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
-  </component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/src/main/java/com/example/labiryntsolver/GeneticAlgorithm.java">
-      <ranges>
-        <range start1="2" end1="2" start2="2" end2="4" changelist="841e8135-f197-444f-bf6f-682385889f0c" />
-        <range start1="7" end1="8" start2="9" end2="9" changelist="6afaaa4a-e50b-47e7-8060-3775c1f0b622" />
-        <range start1="10" end1="10" start2="11" end2="12" changelist="6afaaa4a-e50b-47e7-8060-3775c1f0b622" />
-        <range start1="13" end1="14" start2="15" end2="15" changelist="6afaaa4a-e50b-47e7-8060-3775c1f0b622" />
-        <range start1="18" end1="28" start2="19" end2="25" changelist="6afaaa4a-e50b-47e7-8060-3775c1f0b622" />
-        <range start1="30" end1="46" start2="27" end2="35" changelist="6afaaa4a-e50b-47e7-8060-3775c1f0b622" />
-        <range start1="50" end1="50" start2="39" end2="40" changelist="6afaaa4a-e50b-47e7-8060-3775c1f0b622" />
-        <range start1="51" end1="52" start2="41" end2="43" changelist="841e8135-f197-444f-bf6f-682385889f0c" />
-        <range start1="53" end1="54" start2="44" end2="45" changelist="841e8135-f197-444f-bf6f-682385889f0c" />
-        <range start1="55" end1="56" start2="46" end2="48" changelist="841e8135-f197-444f-bf6f-682385889f0c" />
-        <range start1="62" end1="64" start2="54" end2="59" changelist="841e8135-f197-444f-bf6f-682385889f0c" />
-        <range start1="66" end1="68" start2="61" end2="135" changelist="841e8135-f197-444f-bf6f-682385889f0c" />
-        <range start1="69" end1="69" start2="136" end2="153" changelist="841e8135-f197-444f-bf6f-682385889f0c" />
-        <range start1="72" end1="73" start2="156" end2="157" changelist="841e8135-f197-444f-bf6f-682385889f0c" />
-        <range start1="75" end1="76" start2="159" end2="160" changelist="841e8135-f197-444f-bf6f-682385889f0c" />
-        <range start1="78" end1="83" start2="162" end2="168" changelist="841e8135-f197-444f-bf6f-682385889f0c" />
-        <range start1="86" end1="105" start2="171" end2="172" changelist="841e8135-f197-444f-bf6f-682385889f0c" />
-        <range start1="108" end1="113" start2="175" end2="176" changelist="841e8135-f197-444f-bf6f-682385889f0c" />
-        <range start1="123" end1="133" start2="186" end2="187" changelist="841e8135-f197-444f-bf6f-682385889f0c" />
-        <range start1="134" end1="134" start2="188" end2="199" changelist="841e8135-f197-444f-bf6f-682385889f0c" />
-      </ranges>
-    </file>
   </component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
