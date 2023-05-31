@@ -1,5 +1,7 @@
 package com.example.labiryntsolver;
 
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -46,39 +48,45 @@ public class Maze {
         DFS(mazeElements, mazeElements.size() - 1, mazeElements.get(0).size() - 1, 0);
     }
 
-    public GridPane getMazeInGrid() {
-        GridPane grid = new GridPane();
+    public Canvas getMazeInCanvas() {
+        int mazeSize = mazeElements.size();
+        int cellSize = 100;
+        int wallThickness = 5;
+        int canvasSize = mazeSize * cellSize + wallThickness * (mazeSize + 1);
 
-        for (int i = 0; i < mazeElements.size(); i++) {
-            for (int j = 0; j < mazeElements.get(i).size(); j++) {
+        Canvas canvas = new Canvas(canvasSize, canvasSize);
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+
+        gc.setFill(Color.WHITE);
+        gc.fillRect(0, 0, canvasSize, canvasSize);
+
+        for (int i = 0; i < mazeSize; i++) {
+            for (int j = 0; j < mazeSize; j++) {
                 MazeElement mazeElement = mazeElements.get(i).get(j);
-                Pane pane = new Pane();
-                pane.setStyle("-fx-background-color: white");
+
+                int x = wallThickness + j * cellSize + j * wallThickness;
+                int y = wallThickness + i * cellSize + i * wallThickness;
 
                 if (mazeElement.isLeftBorder()) {
-                    Rectangle leftBorder = new Rectangle(5, 100, Color.BLACK);
-                    pane.getChildren().add(leftBorder);
+                    gc.setFill(Color.BLACK);
+                    gc.fillRect(x - wallThickness, y - wallThickness, wallThickness, 2 * wallThickness + cellSize);
                 }
                 if (mazeElement.isRightBorder()) {
-                    Rectangle rightBorder = new Rectangle(5, 100, Color.BLACK);
-                    rightBorder.setTranslateX(95);
-                    pane.getChildren().add(rightBorder);
+                    gc.setFill(Color.BLACK);
+                    gc.fillRect(x + cellSize, y - wallThickness, wallThickness, 2 * wallThickness + cellSize);
                 }
                 if (mazeElement.isUpBorder()) {
-                    Rectangle upBorder = new Rectangle(100, 5, Color.BLACK);
-                    pane.getChildren().add(upBorder);
+                    gc.setFill(Color.BLACK);
+                    gc.fillRect(x - wallThickness, y - wallThickness, 2 * wallThickness + cellSize, wallThickness);
                 }
                 if (mazeElement.isDownBorder()) {
-                    Rectangle downBorder = new Rectangle(100, 5, Color.BLACK);
-                    downBorder.setTranslateY(95);
-                    pane.getChildren().add(downBorder);
+                    gc.setFill(Color.BLACK);
+                    gc.fillRect(x - wallThickness, y + cellSize, 2 * wallThickness + cellSize, wallThickness);
                 }
-
-                grid.add(pane, j, i);
             }
         }
 
-        return grid;
+        return canvas;
     }
 
     private Direction[] getPassageList(ArrayList<ArrayList<MazeElement>> mazeElements, int elementI, int elementJ) {

@@ -4,33 +4,37 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.beans.binding.DoubleBinding?>
 <GridPane fx:id="mainGrid" maxHeight="-Infinity" maxWidth="400.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.labiryntsolver.GeneratePageController">
-  <columnConstraints>
-    <ColumnConstraints minWidth="10.0" percentWidth="25.0" />
-    <ColumnConstraints minWidth="10.0" percentWidth="50.0" />
-    <ColumnConstraints minWidth="10.0" percentWidth="25.0" />
-  </columnConstraints>
-  <rowConstraints>
-    <RowConstraints minHeight="10.0" percentHeight="100.0" />
-  </rowConstraints>
-   <children>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
-         <children>
-            <HBox alignment="CENTER" spacing="5.0">
-               <children>
-                  <Label alignment="CENTER" text="Dł. boku" />
-                  <Spinner fx:id="spinner" editable="true" prefHeight="25.0" prefWidth="72.0" />
-               </children>
-            </HBox>
-            <Button mnemonicParsing="false" onMouseClicked="#generateMaze" text="Wygeneruj labirynt" />
-            <Button mnemonicParsing="false" onMouseClicked="#startAlgorithm" text="Uruchom algorytm" />
-         </children>
-         <GridPane.margin>
-            <Insets />
-         </GridPane.margin>
-         <padding>
-            <Insets right="10.0" />
-         </padding>
-      </VBox>
-   </children>
+    <columnConstraints>
+        <ColumnConstraints minWidth="10.0" percentWidth="25.0" />
+        <ColumnConstraints minWidth="10.0" percentWidth="50.0" />
+        <ColumnConstraints minWidth="10.0" percentWidth="25.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="10.0" percentHeight="100.0" />
+    </rowConstraints>
+    <children>
+        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
+            <children>
+                <HBox alignment="CENTER" spacing="5.0">
+                    <children>
+                        <Label alignment="CENTER" text="Dł. boku" />
+                        <Spinner fx:id="spinner" editable="true" prefHeight="25.0" prefWidth="72.0" />
+                    </children>
+                </HBox>
+                <Button mnemonicParsing="false" onMouseClicked="#generateMaze" text="Wygeneruj labirynt" />
+                <Button mnemonicParsing="false" onMouseClicked="#startAlgorithm" text="Uruchom algorytm" />
+            </children>
+            <GridPane.margin>
+                <Insets />
+            </GridPane.margin>
+            <padding>
+                <Insets right="10.0" />
+            </padding>
+        </VBox>
+        <Canvas fx:id="generateCanvas" GridPane.columnIndex="1" />
+    </children>
 </GridPane>
+
