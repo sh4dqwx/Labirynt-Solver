@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class GeneticAlgorithm {
-    private static int POPULATION_SIZE = 10;
+    private static int POPULATION_SIZE = 100;
     private Maze maze;
     private ArrayList<Generation> generationList;
     private Generation currentGeneration;
@@ -28,7 +28,7 @@ public class GeneticAlgorithm {
     private Generation startNewGeneration() {
         Solution[] solutionList = new Solution[POPULATION_SIZE];
         for(int i=0; i<POPULATION_SIZE; i++)
-            solutionList[i] = Solution.random(maze.getMaxDistanceFromEnd(), maze);
+            solutionList[i] = Solution.random(maze.getDistanceFromStartToEnd(), maze);
         Generation firstGeneration = new Generation(1, solutionList, maze);
         generationList.add(firstGeneration);
         currentGeneration = firstGeneration;
@@ -38,6 +38,7 @@ public class GeneticAlgorithm {
 
 class Generation {
     private static double CROSSOVER_PROBABILITY = 0.8;
+    private static double MUTATION_PROBABILITY = 0.2;
     private int nr;
     private Solution[] solutionList;
     private Maze maze;
@@ -52,8 +53,8 @@ class Generation {
         return nr;
     }
 
-    public int[] getFitnessScores() {
-        int[] fitnessScores = new int[solutionList.length];
+    public double[] getFitnessScores() {
+        double[] fitnessScores = new double[solutionList.length];
         for(int i=0; i< solutionList.length; i++)
             fitnessScores[i] = solutionList[i].getFitness();
         return fitnessScores;
@@ -67,28 +68,34 @@ class Generation {
             Solution parent2 = getRandomSolution(rouletteWheel);
             if(Math.random() > CROSSOVER_PROBABILITY)
                 continue;
-            Direction[] parent1Directions = mutateDirections(parent1.getDirectionList());
-            Direction[] parent2Directions = mutateDirections(parent2.getDirectionList());
+            Direction[] parent1Directions = parent1.getDirectionList();
+            Direction[] parent2Directions = parent2.getDirectionList();
             Pair<Direction[], Direction[]> crossedDirections = crossoverSolutions(new Pair<>(parent1Directions, parent2Directions));
 
-            Solution crossedSolution1 = new Solution(crossedDirections.getKey(), maze);
-            Solution crossedSolution2 = new Solution(crossedDirections.getValue(), maze);
+            Direction[] crossedDirections1 = crossedDirections.getKey();
+            Direction[] crossedDirections2 = crossedDirections.getValue();
+            if(Math.random() <= MUTATION_PROBABILITY)
+                crossedDirections1 = mutateDirections(crossedDirections1);
+            if(Math.random() <= MUTATION_PROBABILITY)
+                crossedDirections2 = mutateDirections(crossedDirections2);
+
+            Solution crossedSolution1 = new Solution(crossedDirections1, maze);
+            Solution crossedSolution2 = new Solution(crossedDirections2, maze);
 
             nextSolutionList.add(crossedSolution1);
             if(nextSolutionList.size() < solutionList.length)
                 nextSolutionList.add(crossedSolution2);
         }
-
         return new Generation(nr + 1, nextSolutionList.toArray(new Solution[0]), maze);
     }
 
-    private double[] createRouletteWheel(int[] fitnessScores) {
-        int fitnessSum = 0;
-        for(int fitness : fitnessScores)
+    private double[] createRouletteWheel(double[] fitnessScores) {
+        double fitnessSum = 0.0;
+        for(double fitness : fitnessScores)
             fitnessSum += fitness;
         double[] rouletteWheel = new double[fitnessScores.length];
         for(int i=0; i<fitnessScores.length; i++)
-            rouletteWheel[i] = 1.0 * fitnessScores[i] / fitnessSum;
+            rouletteWheel[i] = fitnessScores[i] / fitnessSum;
         return rouletteWheel;
     }
 
@@ -96,7 +103,7 @@ class Generation {
         double randomValue = Math.random();
         double baseValue = 0.0;
         for(int i=0; i<rouletteWheel.length; i++) {
-            if(baseValue <= randomValue && randomValue <= rouletteWheel[i])
+            if(baseValue <= randomValue && randomValue <= baseValue + rouletteWheel[i])
                 return solutionList[i];
             baseValue += rouletteWheel[i];
         }
@@ -147,7 +154,7 @@ class Generation {
 
 class Solution {
     private Direction[] directionList;
-    private int fitness;
+    private double fitness;
 
     public static Solution random(int maxDistance, Maze maze) {
         Direction[] randomDirections = new Direction[maxDistance];
@@ -165,7 +172,7 @@ class Solution {
         calulateFitness(maze);
     }
 
-    public int getFitness() {
+    public double getFitness() {
         return fitness;
     }
 
@@ -175,16 +182,43 @@ class Solution {
 
     private void calulateFitness(Maze maze) {
         int i = 0, j = 0;
-        for (Direction direction: directionList) {
-            if(!maze.getPossibleDirections(i, j).contains(direction)) break;
-            switch (direction) {
-                case UP -> i--;
-                case DOWN -> i++;
-                case LEFT -> j--;
-                case RIGHT -> j++;
+        boolean breakFlag = false;
+        for (int k=0; k<directionList.length; k++) {
+            if(!maze.getPossibleDirections(i, j).contains(directionList[k])) break;
+            switch (directionList[k]) {
+                case UP -> {
+                    if(k > 0 && directionList[k-1] == Direction.DOWN) {
+                        breakFlag = true;
+                        break;
+                    }
+                    i--;
+                }
+                case DOWN -> {
+                    if(k > 0 && directionList[k-1] == Direction.UP) {
+                        breakFlag = true;
+                        break;
+                    }
+                    i++;
+                }
+                case LEFT -> {
+                    if(k > 0 && directionList[k-1] == Direction.RIGHT) {
+                        breakFlag = true;
+                        break;
+                    }
+                    j--;
+                }
+                case RIGHT -> {
+                    if(k > 0 && directionList[k-1] == Direction.LEFT) {
+                        breakFlag = true;
+                        break;
+                    }
+                    j++;
+                }
             }
+
+            if(breakFlag) break;
         }
-        fitness = maze.getDistanceToEnd(i, j);
+        fitness = 1.0 / (maze.getDistanceToEnd(i, j) + 1);
     }
 
     @Override

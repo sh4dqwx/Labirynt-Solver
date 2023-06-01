@@ -17,8 +17,8 @@ public class Maze {
         maxDistanceFromEnd = 0;
     }
 
-    public int getMaxDistanceFromEnd() {
-        return maxDistanceFromEnd;
+    public int getDistanceFromStartToEnd() {
+        return getDistanceToEnd(0, 0);
     }
 
     public ArrayList<Direction> getPossibleDirections(int elementI, int elementJ) {

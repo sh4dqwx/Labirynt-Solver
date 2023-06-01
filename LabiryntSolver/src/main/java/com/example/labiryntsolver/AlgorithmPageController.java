@@ -33,7 +33,7 @@ public class AlgorithmPageController {
 
     public void nextGeneration() {
         Generation generation = geneticAlgorithm.nextGeneration();
-        System.out.println(generation);
+        System.out.println(generation + "\n\n");
         //drawMaze();
     }
 
