@@ -39,7 +39,7 @@ public class AlgorithmPageController {
 
     public void autoMode() {
         Generation generation = null;
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 10000; i++) {
            generation = geneticAlgorithm.nextGeneration();
         }
         System.out.println(generation);
@@ -55,6 +55,6 @@ public class AlgorithmPageController {
         mazeInCanvas.snapshot(null, mazeImage);
 
         GraphicsContext gc = algorithmCanvas.getGraphicsContext2D();
-        gc.drawImage(mazeImage, 0, 0);
+        gc.drawImage(mazeImage, 0, 0, algorithmCanvas.getWidth(), algorithmCanvas.getHeight());
     }
 }
