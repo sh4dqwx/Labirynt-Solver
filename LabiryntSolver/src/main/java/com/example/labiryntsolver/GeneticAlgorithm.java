@@ -2,25 +2,25 @@ package com.example.labiryntsolver;
 
 import javafx.util.Pair;
 
-import java.util.ArrayList;
-import java.util.Random;
+import java.util.*;
 
 public class GeneticAlgorithm {
-    private static int POPULATION_SIZE = 100;
+    private static int POPULATION_SIZE = 10;
     private Maze maze;
-    private ArrayList<Generation> generationList;
+    //private ArrayList<Generation> generationList;
     private Generation currentGeneration;
 
     public GeneticAlgorithm(Maze maze) {
-        generationList = new ArrayList<>();
+        //generationList = new ArrayList<>();
         this.maze = maze;
     }
 
     public Generation nextGeneration() {
         if(currentGeneration == null)
             return startNewGeneration();
+        //if(currentGeneration.getNumber() == 100000) return currentGeneration;
         Generation nextGeneration = currentGeneration.generateNextGeneration();
-        generationList.add(nextGeneration);
+        //generationList.add(nextGeneration);
         currentGeneration = nextGeneration;
         return currentGeneration;
     }
@@ -30,26 +30,27 @@ public class GeneticAlgorithm {
         for(int i=0; i<POPULATION_SIZE; i++)
             solutionList[i] = Solution.random(maze.getDistanceFromStartToEnd(), maze);
         Generation firstGeneration = new Generation(1, solutionList, maze);
-        generationList.add(firstGeneration);
+        //generationList.add(firstGeneration);
         currentGeneration = firstGeneration;
         return currentGeneration;
     }
 }
 
 class Generation {
-    private static double CROSSOVER_PROBABILITY = 0.8;
-    private static double MUTATION_PROBABILITY = 0.2;
-    private int nr;
-    private Solution[] solutionList;
-    private Maze maze;
+    private static double CROSSOVER_PROBABILITY = 0.9;
+    private static double MUTATION_PROBABILITY = 0.5;
+    private static int HOW_MANY_MUTATIONS = 1;
+    private final long nr;
+    private final Solution[] solutionList;
+    private final Maze maze;
 
-    public Generation(int nr, Solution[] solutionList, Maze maze) {
+    public Generation(long nr, Solution[] solutionList, Maze maze) {
         this.nr = nr;
         this.solutionList = solutionList;
         this.maze = maze;
     }
 
-    public int getNumber() {
+    public long getNumber() {
         return nr;
     }
 
@@ -58,6 +59,13 @@ class Generation {
         for(int i=0; i< solutionList.length; i++)
             fitnessScores[i] = solutionList[i].getFitness();
         return fitnessScores;
+    }
+
+    public double getBestScore() {
+        OptionalDouble max = Arrays.stream(getFitnessScores()).max();
+        if(max.isPresent())
+            return max.getAsDouble();
+        return 0.0;
     }
 
     public Generation generateNextGeneration() {
@@ -74,10 +82,23 @@ class Generation {
 
             Direction[] crossedDirections1 = crossedDirections.getKey();
             Direction[] crossedDirections2 = crossedDirections.getValue();
-            if(Math.random() <= MUTATION_PROBABILITY)
-                crossedDirections1 = mutateDirections(crossedDirections1);
-            if(Math.random() <= MUTATION_PROBABILITY)
-                crossedDirections2 = mutateDirections(crossedDirections2);
+            if(Math.random() <= MUTATION_PROBABILITY) {
+//                System.out.println("Mutacja");
+//                for(Direction direction : crossedDirections1) System.out.print(direction + " ");
+//                System.out.println();
+                crossedDirections1 = mutateDirections(crossedDirections1, HOW_MANY_MUTATIONS);
+//                for(Direction direction : crossedDirections1) System.out.print(direction + " ");
+//                System.out.println();
+            }
+
+            if(Math.random() <= MUTATION_PROBABILITY) {
+//                System.out.println("Mutacja");
+//                for(Direction direction : crossedDirections2) System.out.print(direction + " ");
+//                System.out.println();
+                crossedDirections2 = mutateDirections(crossedDirections2, HOW_MANY_MUTATIONS);
+//                for(Direction direction : crossedDirections2) System.out.print(direction + " ");
+//                System.out.println();
+            }
 
             Solution crossedSolution1 = new Solution(crossedDirections1, maze);
             Solution crossedSolution2 = new Solution(crossedDirections2, maze);
@@ -128,16 +149,22 @@ class Generation {
         return new Pair<>(first, second);
     }
 
-    private Direction[] mutateDirections(Direction[] directions) {
-        int randomPoint = new Random().nextInt(directions.length);
-        Direction oldDirection = directions[randomPoint];
+    private Direction[] mutateDirections(Direction[] directions, int numberOfMutable) {
+        ArrayList<Integer> arrayToRandomize = new ArrayList<>();
+        for(int i=0; i< directions.length; i++) arrayToRandomize.add(i);
+        Collections.shuffle(arrayToRandomize);
 
-        int randomDirectionNumber = new Random().nextInt(Direction.values().length - 1) + 1;
-        if (randomDirectionNumber >= oldDirection.toInt())
-            randomDirectionNumber++;
-        Direction newDirection = Direction.values()[randomDirectionNumber - 1];
+        for (int i = 0; i < numberOfMutable && i < directions.length; i++) {
+            Direction oldDirection = directions[arrayToRandomize.get(i)];
 
-        directions[randomPoint] = newDirection;
+            int randomDirectionNumber = new Random().nextInt(Direction.values().length - 1) + 1;
+            if (randomDirectionNumber >= oldDirection.toInt())
+                randomDirectionNumber++;
+            Direction newDirection = Direction.values()[randomDirectionNumber - 1];
+
+            directions[arrayToRandomize.get(i)] = newDirection;
+        }
+
         return directions;
     }
 
@@ -153,7 +180,7 @@ class Generation {
 }
 
 class Solution {
-    private Direction[] directionList;
+    private final Direction[] directionList;
     private double fitness;
 
     public static Solution random(int maxDistance, Maze maze) {
@@ -218,7 +245,7 @@ class Solution {
 
             if(breakFlag) break;
         }
-        fitness = 1.0 / (maze.getDistanceToEnd(i, j) + 1);
+        fitness = (1.0 / (maze.getDistanceToEnd(i, j) + 1)) * (1.0 / (maze.getDistanceToEnd(i, j) + 1)) * 100;
     }
 
     @Override

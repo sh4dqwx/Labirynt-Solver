@@ -6,9 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="841e8135-f197-444f-bf6f-682385889f0c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/labiryntsolver/GeneticAlgorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/labiryntsolver/GeneticAlgorithm.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/labiryntsolver/Maze.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/labiryntsolver/Maze.java" afterDir="false" />
     </list>
-    <list id="6afaaa4a-e50b-47e7-8060-3775c1f0b622" name="Changes by Bartek" comment="" />
+    <list id="6afaaa4a-e50b-47e7-8060-3775c1f0b622" name="Changes by Bartek" comment="">
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/labiryntsolver/AlgorithmPageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/labiryntsolver/AlgorithmPageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/labiryntsolver/GeneticAlgorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/labiryntsolver/GeneticAlgorithm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/labiryntsolver/algorithm-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/labiryntsolver/algorithm-page.fxml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -25,6 +30,29 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/src/main/java/com/example/labiryntsolver/GeneticAlgorithm.java">
+      <ranges>
+        <range start1="4" end1="6" start2="4" end2="5" changelist="841e8135-f197-444f-bf6f-682385889f0c" />
+        <range start1="8" end1="9" start2="7" end2="8" changelist="6afaaa4a-e50b-47e7-8060-3775c1f0b622" />
+        <range start1="10" end1="11" start2="9" end2="10" changelist="6afaaa4a-e50b-47e7-8060-3775c1f0b622" />
+        <range start1="14" end1="15" start2="13" end2="14" changelist="6afaaa4a-e50b-47e7-8060-3775c1f0b622" />
+        <range start1="21" end1="21" start2="20" end2="21" changelist="6afaaa4a-e50b-47e7-8060-3775c1f0b622" />
+        <range start1="22" end1="23" start2="22" end2="23" changelist="6afaaa4a-e50b-47e7-8060-3775c1f0b622" />
+        <range start1="32" end1="33" start2="32" end2="33" changelist="6afaaa4a-e50b-47e7-8060-3775c1f0b622" />
+        <range start1="39" end1="44" start2="39" end2="45" changelist="841e8135-f197-444f-bf6f-682385889f0c" />
+        <range start1="45" end1="46" start2="46" end2="47" changelist="841e8135-f197-444f-bf6f-682385889f0c" />
+        <range start1="51" end1="52" start2="52" end2="53" changelist="841e8135-f197-444f-bf6f-682385889f0c" />
+        <range start1="61" end1="61" start2="62" end2="69" changelist="841e8135-f197-444f-bf6f-682385889f0c" />
+        <range start1="76" end1="80" start2="84" end2="101" changelist="6afaaa4a-e50b-47e7-8060-3775c1f0b622" />
+        <range start1="130" end1="133" start2="151" end2="158" changelist="841e8135-f197-444f-bf6f-682385889f0c" />
+        <range start1="134" end1="138" start2="159" end2="163" changelist="6afaaa4a-e50b-47e7-8060-3775c1f0b622" />
+        <range start1="139" end1="140" start2="164" end2="167" changelist="841e8135-f197-444f-bf6f-682385889f0c" />
+        <range start1="155" end1="156" start2="182" end2="183" changelist="841e8135-f197-444f-bf6f-682385889f0c" />
+        <range start1="220" end1="221" start2="247" end2="248" changelist="6afaaa4a-e50b-47e7-8060-3775c1f0b622" />
+      </ranges>
+    </file>
   </component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />

@@ -33,16 +33,36 @@ public class AlgorithmPageController {
 
     public void nextGeneration() {
         Generation generation = geneticAlgorithm.nextGeneration();
+        System.out.println(generation.getNumber());
         System.out.println(generation + "\n\n");
-        //drawMaze();
+    }
+
+    public void next10Generations() {
+        Generation generation = null;
+        for (int i = 0; i < 10; i++) {
+            generation = geneticAlgorithm.nextGeneration();
+        }
+        System.out.println(generation.getNumber());
+        System.out.println(generation + "\n\n");
+    }
+
+    public void next100Generations() {
+        Generation generation = null;
+        for (int i = 0; i < 100; i++) {
+            generation = geneticAlgorithm.nextGeneration();
+        }
+        System.out.println(generation.getNumber());
+        System.out.println(generation + "\n\n");
     }
 
     public void autoMode() {
         Generation generation = null;
-        for (int i = 0; i < 10000; i++) {
-           generation = geneticAlgorithm.nextGeneration();
-        }
-        System.out.println(generation);
+        do {
+            generation = geneticAlgorithm.nextGeneration();
+            System.out.println(generation.getNumber() + " | " + generation.getBestScore());
+        } while (generation.getBestScore() != 100.0);
+        System.out.println(generation.getNumber());
+        System.out.println(generation + "\n\n");
     }
 
     public void goBack() {

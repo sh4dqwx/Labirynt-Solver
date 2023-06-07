@@ -18,6 +18,8 @@
         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
             <children>
                 <Button mnemonicParsing="false" onMouseClicked="#nextGeneration" text="Przejdź generację" />
+                <Button mnemonicParsing="false" onMouseClicked="#next10Generations" text="Przejdź o 10 generacji" />
+                <Button mnemonicParsing="false" onMouseClicked="#next100Generations" text="Przejdź o 100 generacji" />
                 <Button mnemonicParsing="false" onMouseClicked="#autoMode" text="Auto" />
             </children>
             <GridPane.margin>

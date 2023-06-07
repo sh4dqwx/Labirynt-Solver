@@ -40,8 +40,6 @@ public class Maze {
             for (int j = 0; j < size; j++) {
                 MazeElement element = new MazeElement();
                 element.setBorders(true, true, true, true);
-                if (i == 0 && j == 0) element.setUpBorder(false);
-                if (i == size - 1 && j == size - 1) element.setDownBorder(false);
                 mazeRow.add(element);
             }
             mazeElements.add(mazeRow);
