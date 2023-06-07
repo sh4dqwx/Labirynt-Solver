@@ -21,7 +21,7 @@ public class GeneratePageController {
     public void initialize() {
         generateCanvas.widthProperty().bind(mainGrid.widthProperty().divide(2));
         generateCanvas.heightProperty().bind(generateCanvas.widthProperty());
-        spinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(3, 30, 3));
+        spinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(3, 50, 3));
         maze = new Maze();
     }
 

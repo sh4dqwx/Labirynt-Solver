@@ -60,6 +60,7 @@ public class Maze {
         gc.setFill(Color.WHITE);
         gc.fillRect(0, 0, canvasSize, canvasSize);
 
+        gc.setFill(Color.BLACK);
         for (int i = 0; i < mazeSize; i++) {
             for (int j = 0; j < mazeSize; j++) {
                 MazeElement mazeElement = mazeElements.get(i).get(j);
@@ -67,23 +68,93 @@ public class Maze {
                 int x = wallThickness + j * cellSize + j * wallThickness;
                 int y = wallThickness + i * cellSize + i * wallThickness;
 
-                if (mazeElement.isLeftBorder()) {
-                    gc.setFill(Color.BLACK);
+                if (mazeElement.isLeftBorder())
                     gc.fillRect(x - wallThickness, y - wallThickness, wallThickness, 2 * wallThickness + cellSize);
-                }
-                if (mazeElement.isRightBorder()) {
-                    gc.setFill(Color.BLACK);
+
+                if (mazeElement.isRightBorder())
                     gc.fillRect(x + cellSize, y - wallThickness, wallThickness, 2 * wallThickness + cellSize);
-                }
-                if (mazeElement.isUpBorder()) {
-                    gc.setFill(Color.BLACK);
+
+                if (mazeElement.isUpBorder())
                     gc.fillRect(x - wallThickness, y - wallThickness, 2 * wallThickness + cellSize, wallThickness);
-                }
-                if (mazeElement.isDownBorder()) {
-                    gc.setFill(Color.BLACK);
+
+                if (mazeElement.isDownBorder())
                     gc.fillRect(x - wallThickness, y + cellSize, 2 * wallThickness + cellSize, wallThickness);
+            }
+        }
+
+        return canvas;
+    }
+
+    public Canvas getMazeWithSolutionInCanvas(Direction[] directions) {
+        int mazeSize = mazeElements.size();
+        int cellSize = 100;
+        int wallThickness = 5;
+
+        Canvas canvas = getMazeInCanvas();
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+
+        gc.setStroke(Color.RED);
+        gc.setLineWidth(wallThickness * 3);
+
+        gc.strokeLine(wallThickness + cellSize / 2.0, wallThickness, wallThickness + cellSize / 2.0, wallThickness + cellSize / 2.0);
+
+        boolean breakFlag = false;
+        int iCell = 0, jCell = 0;
+        Direction previousDirection = null;
+        for (Direction currentDirection: directions) {
+            System.out.println(currentDirection.toString());
+            int x1 = wallThickness + jCell * (cellSize + wallThickness);
+            int y1 = wallThickness + iCell * (cellSize + wallThickness);
+
+
+            boolean isPossibleMove = getPossibleDirections(iCell, jCell).contains(currentDirection);
+
+            switch (currentDirection) {
+                case UP -> {
+                    iCell--;
+                    if (previousDirection != null && previousDirection == Direction.DOWN)
+                        breakFlag = true;
+                }
+                case DOWN -> {
+                    iCell++;
+                    if (previousDirection != null && previousDirection == Direction.UP)
+                        breakFlag = true;
+                }
+                case LEFT -> {
+                    jCell--;
+                    if (previousDirection != null && previousDirection == Direction.RIGHT)
+                        breakFlag = true;
+                }
+                case RIGHT -> {
+                    jCell++;
+                    if (previousDirection != null && previousDirection == Direction.LEFT)
+                        breakFlag = true;
                 }
             }
+            int x2 = wallThickness + jCell * (cellSize + wallThickness);
+            int y2 = wallThickness + iCell * (cellSize + wallThickness);
+
+            if (breakFlag) break;
+
+            if (!isPossibleMove) {
+                switch (currentDirection) {
+                    case UP -> gc.strokeLine(x1 + cellSize / 2.0, y1 + cellSize / 2.0, x1 + cellSize / 2.0, y1);
+                    case DOWN -> gc.strokeLine(x1 + cellSize / 2.0, y1 + cellSize / 2.0, x1 + cellSize / 2.0, y1 + cellSize);
+                    case LEFT -> gc.strokeLine(x1 + cellSize / 2.0, y1 + cellSize / 2.0, x1, y1 + cellSize / 2.0);
+                    case RIGHT -> gc.strokeLine(x1 + cellSize / 2.0, y1 + cellSize / 2.0, x1 + cellSize, y1 + cellSize / 2.0);
+                }
+                break;
+            }
+
+            gc.strokeLine(x1 + cellSize / 2.0, y1 + cellSize / 2.0, x2 + cellSize / 2.0, y2 + cellSize / 2.0);
+            previousDirection = currentDirection;
+        }
+
+        if(iCell == mazeSize - 1 && jCell == mazeSize - 1){
+            int x = wallThickness + jCell * (cellSize + wallThickness);
+            int y = wallThickness + iCell * (cellSize + wallThickness);
+
+            gc.strokeLine(x + cellSize / 2.0, y + cellSize / 2.0, x + cellSize / 2.0, y + cellSize);
         }
 
         return canvas;

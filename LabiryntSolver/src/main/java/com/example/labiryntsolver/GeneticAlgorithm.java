@@ -5,7 +5,7 @@ import javafx.util.Pair;
 import java.util.*;
 
 public class GeneticAlgorithm {
-    private static int POPULATION_SIZE = 10;
+    private static int POPULATION_SIZE = 50;
     private Maze maze;
     //private ArrayList<Generation> generationList;
     private Generation currentGeneration;
@@ -25,6 +25,12 @@ public class GeneticAlgorithm {
         return currentGeneration;
     }
 
+    public Direction[] getBestSolutionDirectionList() {
+        if(currentGeneration != null)
+            return currentGeneration.getSolutionList()[0].getDirectionList();
+        return null;
+    }
+
     private Generation startNewGeneration() {
         Solution[] solutionList = new Solution[POPULATION_SIZE];
         for(int i=0; i<POPULATION_SIZE; i++)
@@ -38,7 +44,7 @@ public class GeneticAlgorithm {
 
 class Generation {
     private static double CROSSOVER_PROBABILITY = 0.9;
-    private static double MUTATION_PROBABILITY = 0.5;
+    private static double MUTATION_PROBABILITY = 0.2;
     private static int HOW_MANY_MUTATIONS = 1;
     private final long nr;
     private final Solution[] solutionList;
@@ -47,6 +53,13 @@ class Generation {
     public Generation(long nr, Solution[] solutionList, Maze maze) {
         this.nr = nr;
         this.solutionList = solutionList;
+        Arrays.sort(this.solutionList, new Comparator<Solution>() {
+            @Override
+            public int compare(Solution o1, Solution o2) {
+                int compareValue = o1.compareTo(o2);
+                return Integer.compare(0, compareValue);
+            }
+        });
         this.maze = maze;
     }
 
@@ -68,25 +81,32 @@ class Generation {
         return 0.0;
     }
 
+    public Solution[] getSolutionList() {
+        return solutionList;
+    }
+
     public Generation generateNextGeneration() {
         ArrayList<Solution> nextSolutionList = new ArrayList<>();
-        double[] rouletteWheel = createRouletteWheel(getFitnessScores());
+//        double[] rouletteWheel = createRouletteWheel(getFitnessScores());
+        Solution parent1 = solutionList[0];
+        Solution parent2 = solutionList[1];
+        int minLastGoodIndex = Math.min(parent1.getLastGoodIndex(), parent2.getLastGoodIndex());
+        Direction[] directions1 = parent1.getDirectionList();
+        Direction[] directions2 = parent2.getDirectionList();
+        Pair<Direction[], Direction[]> directionsPair = new Pair<>(directions1, directions2);
         while(nextSolutionList.size() < solutionList.length) {
-            Solution parent1 = getRandomSolution(rouletteWheel);
-            Solution parent2 = getRandomSolution(rouletteWheel);
+//            Solution parent1 = getRandomSolution(rouletteWheel);
+//            Solution parent2 = getRandomSolution(rouletteWheel);
             if(Math.random() > CROSSOVER_PROBABILITY)
                 continue;
-            Direction[] parent1Directions = parent1.getDirectionList();
-            Direction[] parent2Directions = parent2.getDirectionList();
-            Pair<Direction[], Direction[]> crossedDirections = crossoverSolutions(new Pair<>(parent1Directions, parent2Directions));
-
+            Pair<Direction[], Direction[]> crossedDirections = crossoverSolutions(directionsPair, minLastGoodIndex);
             Direction[] crossedDirections1 = crossedDirections.getKey();
             Direction[] crossedDirections2 = crossedDirections.getValue();
             if(Math.random() <= MUTATION_PROBABILITY) {
 //                System.out.println("Mutacja");
 //                for(Direction direction : crossedDirections1) System.out.print(direction + " ");
 //                System.out.println();
-                crossedDirections1 = mutateDirections(crossedDirections1, HOW_MANY_MUTATIONS);
+                crossedDirections1 = mutateDirections(crossedDirections1, minLastGoodIndex, HOW_MANY_MUTATIONS);
 //                for(Direction direction : crossedDirections1) System.out.print(direction + " ");
 //                System.out.println();
             }
@@ -95,11 +115,10 @@ class Generation {
 //                System.out.println("Mutacja");
 //                for(Direction direction : crossedDirections2) System.out.print(direction + " ");
 //                System.out.println();
-                crossedDirections2 = mutateDirections(crossedDirections2, HOW_MANY_MUTATIONS);
+                crossedDirections2 = mutateDirections(crossedDirections2, minLastGoodIndex, HOW_MANY_MUTATIONS);
 //                for(Direction direction : crossedDirections2) System.out.print(direction + " ");
 //                System.out.println();
             }
-
             Solution crossedSolution1 = new Solution(crossedDirections1, maze);
             Solution crossedSolution2 = new Solution(crossedDirections2, maze);
 
@@ -131,27 +150,29 @@ class Generation {
         return solutionList[rouletteWheel.length - 1];
     }
 
-    private Pair<Direction[], Direction[]> crossoverSolutions(Pair<Direction[], Direction[]> directionsPair) {
-        int minDirectionsLength = Math.min(directionsPair.getKey().length, directionsPair.getValue().length);
-        int cutPoint = new Random().nextInt(minDirectionsLength - 1);
+    private Pair<Direction[], Direction[]> crossoverSolutions(Pair<Direction[], Direction[]> directionsPair, int minLastGoodIndex) {
+        Direction[] directions1 = directionsPair.getKey();
+        Direction[] directions2 = directionsPair.getValue();
+        int solutionLength = directions1.length;
+        int cutPoint = new Random().nextInt(minLastGoodIndex, solutionLength);
 
-        Direction[] first = new Direction[minDirectionsLength];
-        Direction[] second = new Direction[minDirectionsLength];
-        for(int i=0; i<minDirectionsLength; i++) {
+        Direction[] first = new Direction[solutionLength];
+        Direction[] second = new Direction[solutionLength];
+        for(int i = 0; i < solutionLength; i++) {
             if(i <= cutPoint) {
-                first[i] = directionsPair.getKey()[i];
-                second[i] = directionsPair.getValue()[i];
+                first[i] = directions1[i];
+                second[i] = directions2[i];
             } else {
-                first[i] = directionsPair.getValue()[i];
-                second[i] = directionsPair.getKey()[i];
+                first[i] = directions2[i];
+                second[i] = directions1[i];
             }
         }
         return new Pair<>(first, second);
     }
 
-    private Direction[] mutateDirections(Direction[] directions, int numberOfMutable) {
+    private Direction[] mutateDirections(Direction[] directions, int minLastGoodIndex, int numberOfMutable) {
         ArrayList<Integer> arrayToRandomize = new ArrayList<>();
-        for(int i=0; i< directions.length; i++) arrayToRandomize.add(i);
+        for(int i=minLastGoodIndex; i< directions.length; i++) arrayToRandomize.add(i);
         Collections.shuffle(arrayToRandomize);
 
         for (int i = 0; i < numberOfMutable && i < directions.length; i++) {
@@ -179,8 +200,9 @@ class Generation {
     }
 }
 
-class Solution {
+class Solution implements Comparable<Solution> {
     private final Direction[] directionList;
+    private int lastGoodIndex;
     private double fitness;
 
     public static Solution random(int maxDistance, Maze maze) {
@@ -203,6 +225,8 @@ class Solution {
         return fitness;
     }
 
+    public int getLastGoodIndex() { return lastGoodIndex; }
+
     public Direction[] getDirectionList() {
         return directionList;
     }
@@ -211,7 +235,10 @@ class Solution {
         int i = 0, j = 0;
         boolean breakFlag = false;
         for (int k=0; k<directionList.length; k++) {
-            if(!maze.getPossibleDirections(i, j).contains(directionList[k])) break;
+            if(!maze.getPossibleDirections(i, j).contains(directionList[k])) {
+                lastGoodIndex = k;
+                break;
+            }
             switch (directionList[k]) {
                 case UP -> {
                     if(k > 0 && directionList[k-1] == Direction.DOWN) {
@@ -243,9 +270,17 @@ class Solution {
                 }
             }
 
-            if(breakFlag) break;
+            if(breakFlag) {
+                lastGoodIndex = k-1;
+                break;
+            }
         }
-        fitness = (1.0 / (maze.getDistanceToEnd(i, j) + 1)) * (1.0 / (maze.getDistanceToEnd(i, j) + 1)) * 100;
+        fitness = 1.0 / (maze.getDistanceToEnd(i, j) + 1);
+    }
+
+    @Override
+    public int compareTo(Solution s) {
+        return Double.compare(fitness, s.getFitness());
     }
 
     @Override
