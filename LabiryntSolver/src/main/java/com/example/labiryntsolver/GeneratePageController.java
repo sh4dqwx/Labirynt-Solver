@@ -17,12 +17,16 @@ public class GeneratePageController {
     private GridPane mainGrid;
     private Maze maze;
     private MainApplication _mainApplication;
+    private WritableImage mazeImage;
 
     public void initialize() {
         generateCanvas.widthProperty().bind(mainGrid.widthProperty().divide(2));
         generateCanvas.heightProperty().bind(generateCanvas.widthProperty());
         spinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(3, 50, 3));
         maze = new Maze();
+
+        mainGrid.widthProperty().addListener((observable, oldValue, newValue) -> redrawImage());
+        mainGrid.heightProperty().addListener((observable, oldValue, newValue) -> redrawImage());
     }
 
     public void generateMaze() {
@@ -30,7 +34,7 @@ public class GeneratePageController {
         maze.generateMaze(spinnerValue);
 
         Canvas mazeInCanvas = maze.getMazeInCanvas();
-        WritableImage mazeImage = new WritableImage((int)mazeInCanvas.getWidth(), (int)mazeInCanvas.getHeight());
+        mazeImage = new WritableImage((int)mazeInCanvas.getWidth(), (int)mazeInCanvas.getHeight());
         mazeInCanvas.snapshot(null, mazeImage);
 
         GraphicsContext gc = generateCanvas.getGraphicsContext2D();
@@ -43,5 +47,11 @@ public class GeneratePageController {
 
     public void setMainApplicationReference(MainApplication mainApplication) {
         _mainApplication = mainApplication;
+    }
+
+    private void redrawImage() {
+        if(mazeImage == null) return;
+        GraphicsContext gc = generateCanvas.getGraphicsContext2D();
+        gc.drawImage(mazeImage, 0, 0, generateCanvas.getWidth(), generateCanvas.getHeight());
     }
 }
