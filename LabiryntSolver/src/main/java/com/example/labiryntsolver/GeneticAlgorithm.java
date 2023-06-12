@@ -47,7 +47,6 @@ public class GeneticAlgorithm {
 class Generation {
     private static double CROSSOVER_PROBABILITY = 0.9;
     private static double MUTATION_PROBABILITY = 0.2;
-    private static int HOW_MANY_MUTATIONS = 1;
     private final long nr;
     private final Solution[] solutionList;
     private final Maze maze;
@@ -114,7 +113,7 @@ class Generation {
 //                System.out.println("Mutacja");
 //                for(Direction direction : crossedDirections1) System.out.print(direction + " ");
 //                System.out.println();
-                crossedDirections1 = mutateDirections(crossedDirections1, minLastGoodIndex, HOW_MANY_MUTATIONS);
+                crossedDirections1 = mutateDirections(crossedDirections1, minLastGoodIndex);
 //                for(Direction direction : crossedDirections1) System.out.print(direction + " ");
 //                System.out.println();
             }
@@ -123,7 +122,7 @@ class Generation {
 //                System.out.println("Mutacja");
 //                for(Direction direction : crossedDirections2) System.out.print(direction + " ");
 //                System.out.println();
-                crossedDirections2 = mutateDirections(crossedDirections2, minLastGoodIndex, HOW_MANY_MUTATIONS);
+                crossedDirections2 = mutateDirections(crossedDirections2, minLastGoodIndex);
 //                for(Direction direction : crossedDirections2) System.out.print(direction + " ");
 //                System.out.println();
             }
@@ -178,21 +177,16 @@ class Generation {
         return new Pair<>(first, second);
     }
 
-    private Direction[] mutateDirections(Direction[] directions, int minLastGoodIndex, int numberOfMutable) {
-        ArrayList<Integer> arrayToRandomize = new ArrayList<>();
-        for(int i=minLastGoodIndex; i< directions.length; i++) arrayToRandomize.add(i);
-        Collections.shuffle(arrayToRandomize);
+    private Direction[] mutateDirections(Direction[] directions, int minLastGoodIndex) {
+        int mutationIndex = new Random().nextInt(minLastGoodIndex, directions.length);
+        Direction oldDirection = directions[mutationIndex];
 
-        for (int i = 0; i < numberOfMutable && i < directions.length; i++) {
-            Direction oldDirection = directions[arrayToRandomize.get(i)];
+        int randomDirectionNumber = new Random().nextInt(Direction.values().length - 1) + 1;
+        if (randomDirectionNumber >= oldDirection.toInt())
+            randomDirectionNumber++;
+        Direction newDirection = Direction.values()[randomDirectionNumber - 1];
 
-            int randomDirectionNumber = new Random().nextInt(Direction.values().length - 1) + 1;
-            if (randomDirectionNumber >= oldDirection.toInt())
-                randomDirectionNumber++;
-            Direction newDirection = Direction.values()[randomDirectionNumber - 1];
-
-            directions[arrayToRandomize.get(i)] = newDirection;
-        }
+        directions[mutationIndex] = newDirection;
 
         return directions;
     }

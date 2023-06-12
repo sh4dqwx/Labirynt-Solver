@@ -53,6 +53,7 @@ public class AlgorithmPageController {
         this.maze = maze;
         geneticAlgorithm = new GeneticAlgorithm(maze);
         drawMaze(0);
+        autoBtn.setDisable(false);
     }
 
     public void nextGeneration() {
