@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.GridPane;
@@ -19,6 +20,8 @@ public class AlgorithmPageController {
     private WritableImage mazeImage;
     @FXML
     private GridPane mainGrid;
+    @FXML
+    private Label generationNrLabel;
     @FXML
     private Canvas algorithmCanvas;
     @FXML
@@ -50,7 +53,7 @@ public class AlgorithmPageController {
     public void nextGeneration() {
         Generation generation = geneticAlgorithm.nextGeneration();
         drawMaze(0);
-        showSolutionList(generation);
+        showGeneration(generation);
         System.out.println(generation.getNumber());
         System.out.println(generation + "\n\n");
     }
@@ -61,7 +64,7 @@ public class AlgorithmPageController {
             generation = geneticAlgorithm.nextGeneration();
         }
         drawMaze(0);
-        showSolutionList(generation);
+        showGeneration(generation);
         System.out.println(generation.getNumber());
         System.out.println(generation + "\n\n");
     }
@@ -72,7 +75,7 @@ public class AlgorithmPageController {
             generation = geneticAlgorithm.nextGeneration();
         }
         drawMaze(0);
-        showSolutionList(generation);
+        showGeneration(generation);
         System.out.println(generation.getNumber());
         System.out.println(generation + "\n\n");
     }
@@ -87,7 +90,7 @@ public class AlgorithmPageController {
 
                 if (generationRef.get().getNumber() % refreshInterval == 0) {
                     Platform.runLater(() -> drawMaze(0));
-                    Platform.runLater(() -> showSolutionList(generationRef.get()));
+                    Platform.runLater(() -> showGeneration(generationRef.get()));
                     try {
                         Thread.sleep(100);
                     } catch (InterruptedException e) {
@@ -99,20 +102,22 @@ public class AlgorithmPageController {
             } while (generationRef.get().getBestScore() != 1.0);
 
             Platform.runLater(() -> drawMaze(0));
-            Platform.runLater(() -> showSolutionList(generationRef.get()));
+            Platform.runLater(() -> showGeneration(generationRef.get()));
 
             System.out.println(generationRef.get().getNumber());
             System.out.println(generationRef.get() + "\n\n");
         }).start();
     }
 
-    private void showSolutionList(Generation generation) {
+    private void showGeneration(Generation generation) {
+        generationNrLabel.setText("Generacja " + generation.getNumber());
         ObservableList<String> content = FXCollections.observableArrayList(generation.getSolutionDisplayList());
         solutionListView.setItems(content);
     }
 
     public void goBack() {
         solutionListView.getItems().clear();
+        generationNrLabel.setText("Generacja 0");
         _mainApplication.goToGeneratePage();
     }
 

@@ -4,6 +4,7 @@
 <?import javafx.scene.canvas.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane fx:id="mainAnchorPane" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.labiryntsolver.AlgorithmPageController">
     <children>
@@ -30,13 +31,18 @@
                 </VBox>
                 <VBox alignment="CENTER" GridPane.columnIndex="2">
                     <padding>
-                        <Insets top="10.0" right="10.0" bottom="10.0" left="10.0"/>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                     </padding>
                     <ListView fx:id="solutionListView" VBox.vgrow="ALWAYS" />
                 </VBox>
+            <Label fx:id="generationNrLabel" alignment="CENTER" prefHeight="18.0" prefWidth="300.0" text="Generacja 0" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Label>
                 <Canvas fx:id="algorithmCanvas" GridPane.columnIndex="1" GridPane.columnSpan="2" />
             </children>
         </GridPane>
-        <Button text="Powrót" onAction="#goBack" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0"/>
+        <Button onAction="#goBack" text="Powrót" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" />
     </children>
 </AnchorPane>
