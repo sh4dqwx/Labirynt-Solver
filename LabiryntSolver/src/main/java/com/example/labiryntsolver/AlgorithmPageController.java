@@ -1,21 +1,28 @@
 package com.example.labiryntsolver;
 
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.ListView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.GridPane;
 
+import java.util.concurrent.atomic.AtomicReference;
+
 public class AlgorithmPageController {
     private Maze maze;
-    @FXML
-    private GridPane mainGrid;
     private MainApplication _mainApplication;
     private GeneticAlgorithm geneticAlgorithm;
+    private WritableImage mazeImage;
+    @FXML
+    private GridPane mainGrid;
     @FXML
     private Canvas algorithmCanvas;
-    private WritableImage mazeImage;
+    @FXML
+    private ListView<String> solutionListView;
 
     public void initialize() {
         algorithmCanvas.widthProperty().bind(mainGrid.widthProperty().divide(2));
@@ -23,6 +30,11 @@ public class AlgorithmPageController {
 
         mainGrid.widthProperty().addListener((observable, oldValue, newValue) -> redrawImage());
         mainGrid.heightProperty().addListener((observable, oldValue, newValue) -> redrawImage());
+
+        solutionListView.setOnMouseClicked(event -> {
+            int selectedIndex = solutionListView.getSelectionModel().getSelectedIndex();
+            drawMaze(selectedIndex);
+        });
     }
 
     public void setMainApplicationReference(MainApplication mainApplication) {
@@ -32,12 +44,13 @@ public class AlgorithmPageController {
     public void preparePage(Maze maze) {
         this.maze = maze;
         geneticAlgorithm = new GeneticAlgorithm(maze);
-        drawMaze();
+        drawMaze(0);
     }
 
     public void nextGeneration() {
         Generation generation = geneticAlgorithm.nextGeneration();
-        drawMaze();
+        drawMaze(0);
+        showSolutionList(generation);
         System.out.println(generation.getNumber());
         System.out.println(generation + "\n\n");
     }
@@ -47,7 +60,8 @@ public class AlgorithmPageController {
         for (int i = 0; i < 10; i++) {
             generation = geneticAlgorithm.nextGeneration();
         }
-        drawMaze();
+        drawMaze(0);
+        showSolutionList(generation);
         System.out.println(generation.getNumber());
         System.out.println(generation + "\n\n");
     }
@@ -57,22 +71,23 @@ public class AlgorithmPageController {
         for (int i = 0; i < 100; i++) {
             generation = geneticAlgorithm.nextGeneration();
         }
-        drawMaze();
+        drawMaze(0);
+        showSolutionList(generation);
         System.out.println(generation.getNumber());
         System.out.println(generation + "\n\n");
     }
 
     public void autoMode() {
         final int refreshInterval = 100;
-
         new Thread(() -> {
-            Generation generation = null;
+            AtomicReference<Generation> generationRef = new AtomicReference<>();
 
             do {
-                generation = geneticAlgorithm.nextGeneration();
+                generationRef.set(geneticAlgorithm.nextGeneration());
 
-                if (generation.getNumber() % refreshInterval == 0) {
-                    Platform.runLater(this::drawMaze);
+                if (generationRef.get().getNumber() % refreshInterval == 0) {
+                    Platform.runLater(() -> drawMaze(0));
+                    Platform.runLater(() -> showSolutionList(generationRef.get()));
                     try {
                         Thread.sleep(100);
                     } catch (InterruptedException e) {
@@ -80,23 +95,30 @@ public class AlgorithmPageController {
                     }
                 }
 
-                System.out.println(generation.getNumber() + " | " + generation.getBestScore());
-            } while (generation.getBestScore() != 1.0);
+                System.out.println(generationRef.get().getNumber() + " | " + generationRef.get().getBestScore());
+            } while (generationRef.get().getBestScore() != 1.0);
 
-            Platform.runLater(this::drawMaze);
+            Platform.runLater(() -> drawMaze(0));
+            Platform.runLater(() -> showSolutionList(generationRef.get()));
 
-            System.out.println(generation.getNumber());
-            System.out.println(generation + "\n\n");
+            System.out.println(generationRef.get().getNumber());
+            System.out.println(generationRef.get() + "\n\n");
         }).start();
     }
 
+    private void showSolutionList(Generation generation) {
+        ObservableList<String> content = FXCollections.observableArrayList(generation.getSolutionDisplayList());
+        solutionListView.setItems(content);
+    }
+
     public void goBack() {
+        solutionListView.getItems().clear();
         _mainApplication.goToGeneratePage();
     }
 
-    private void drawMaze() {
+    private void drawMaze(int solutionNr) {
         Canvas mazeInCanvas;
-        Direction[] directionsToDraw = geneticAlgorithm.getBestSolutionDirectionList();
+        Direction[] directionsToDraw = geneticAlgorithm.getSolutionDirectionList(solutionNr);
         if(directionsToDraw == null)
             mazeInCanvas = maze.getMazeInCanvas();
         else mazeInCanvas = maze.getMazeWithSolutionInCanvas(directionsToDraw);

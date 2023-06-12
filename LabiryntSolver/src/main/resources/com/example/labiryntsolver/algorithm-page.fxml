@@ -32,7 +32,7 @@
                     <padding>
                         <Insets top="10.0" right="10.0" bottom="10.0" left="10.0"/>
                     </padding>
-                    <ListView VBox.vgrow="ALWAYS" />
+                    <ListView fx:id="solutionListView" VBox.vgrow="ALWAYS" />
                 </VBox>
                 <Canvas fx:id="algorithmCanvas" GridPane.columnIndex="1" GridPane.columnSpan="2" />
             </children>

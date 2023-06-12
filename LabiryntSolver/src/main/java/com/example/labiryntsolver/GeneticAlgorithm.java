@@ -2,6 +2,8 @@ package com.example.labiryntsolver;
 
 import javafx.util.Pair;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.*;
 
 public class GeneticAlgorithm {
@@ -25,9 +27,9 @@ public class GeneticAlgorithm {
         return currentGeneration;
     }
 
-    public Direction[] getBestSolutionDirectionList() {
+    public Direction[] getSolutionDirectionList(int nr) {
         if(currentGeneration != null)
-            return currentGeneration.getSolutionList()[0].getDirectionList();
+            return currentGeneration.getSolutionList()[nr].getDirectionList();
         return null;
     }
 
@@ -81,13 +83,21 @@ class Generation {
         return 0.0;
     }
 
-    public Solution[] getSolutionList() {
-        return solutionList;
+    public Solution[] getSolutionList() { return solutionList; }
+
+    public String[] getSolutionDisplayList() {
+        String[] solutionDisplayList = new String[solutionList.length];
+        for(int i=0; i<solutionList.length; i++) {
+            int solutionNr = i+1;
+            DecimalFormat df = new DecimalFormat("#.######");
+            df.setRoundingMode(RoundingMode.CEILING);
+            solutionDisplayList[i] = "Rozwiązanie: " + solutionNr + ", Fitness: " + df.format(solutionList[i].getFitness());
+        }
+        return solutionDisplayList;
     }
 
     public Generation generateNextGeneration() {
         ArrayList<Solution> nextSolutionList = new ArrayList<>();
-//        double[] rouletteWheel = createRouletteWheel(getFitnessScores());
         Solution parent1 = solutionList[0];
         Solution parent2 = solutionList[1];
         int minLastGoodIndex = Math.min(parent1.getLastGoodIndex(), parent2.getLastGoodIndex());
@@ -95,8 +105,6 @@ class Generation {
         Direction[] directions2 = parent2.getDirectionList();
         Pair<Direction[], Direction[]> directionsPair = new Pair<>(directions1, directions2);
         while(nextSolutionList.size() < solutionList.length) {
-//            Solution parent1 = getRandomSolution(rouletteWheel);
-//            Solution parent2 = getRandomSolution(rouletteWheel);
             if(Math.random() > CROSSOVER_PROBABILITY)
                 continue;
             Pair<Direction[], Direction[]> crossedDirections = crossoverSolutions(directionsPair, minLastGoodIndex);

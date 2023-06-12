@@ -6,6 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="841e8135-f197-444f-bf6f-682385889f0c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/labiryntsolver/AlgorithmPageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/labiryntsolver/AlgorithmPageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/labiryntsolver/GeneticAlgorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/labiryntsolver/GeneticAlgorithm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/labiryntsolver/algorithm-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/labiryntsolver/algorithm-page.fxml" afterDir="false" />
     </list>
     <list id="0b9c573d-c5e3-4508-954a-67a0bceb2938" name="Changes by Bartek" comment="" />
     <option name="SHOW_DIALOG" value="false" />
