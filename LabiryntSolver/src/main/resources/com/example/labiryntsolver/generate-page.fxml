@@ -25,7 +25,7 @@
                     </children>
                 </HBox>
                 <Button mnemonicParsing="false" onMouseClicked="#generateMaze" text="Wygeneruj labirynt" />
-                <Button mnemonicParsing="false" onMouseClicked="#startAlgorithm" text="Uruchom algorytm" />
+                <Button fx:id="runBtn" disable="true" mnemonicParsing="false" onMouseClicked="#startAlgorithm" text="Uruchom algorytm" />
             </children>
             <GridPane.margin>
                 <Insets />

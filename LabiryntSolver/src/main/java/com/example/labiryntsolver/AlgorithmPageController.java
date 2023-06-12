@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.image.WritableImage;
@@ -26,6 +27,10 @@ public class AlgorithmPageController {
     private Canvas algorithmCanvas;
     @FXML
     private ListView<String> solutionListView;
+    @FXML
+    private Button backBtn;
+    @FXML
+    private Button autoBtn;
 
     public void initialize() {
         algorithmCanvas.widthProperty().bind(mainGrid.widthProperty().divide(2));
@@ -81,6 +86,8 @@ public class AlgorithmPageController {
     }
 
     public void autoMode() {
+        autoBtn.setDisable(true);
+        backBtn.setDisable(true);
         final int refreshInterval = 100;
         new Thread(() -> {
             AtomicReference<Generation> generationRef = new AtomicReference<>();
@@ -106,6 +113,7 @@ public class AlgorithmPageController {
 
             System.out.println(generationRef.get().getNumber());
             System.out.println(generationRef.get() + "\n\n");
+            Platform.runLater(() -> backBtn.setDisable(false));
         }).start();
     }
 

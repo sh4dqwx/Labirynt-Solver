@@ -3,6 +3,7 @@ package com.example.labiryntsolver;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.image.WritableImage;
@@ -15,6 +16,8 @@ public class GeneratePageController {
     private Canvas generateCanvas;
     @FXML
     private GridPane mainGrid;
+    @FXML
+    private Button runBtn;
     private Maze maze;
     private MainApplication _mainApplication;
     private WritableImage mazeImage;
@@ -39,9 +42,12 @@ public class GeneratePageController {
 
         GraphicsContext gc = generateCanvas.getGraphicsContext2D();
         gc.drawImage(mazeImage, 0, 0, generateCanvas.getWidth(), generateCanvas.getHeight());
+
+        runBtn.setDisable(false);
     }
 
     public void startAlgorithm() {
+        if(maze == null) return;
         _mainApplication.goToAlgorithmPage(maze);
     }
 

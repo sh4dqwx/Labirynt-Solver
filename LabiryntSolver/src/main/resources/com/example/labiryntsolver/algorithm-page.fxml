@@ -23,7 +23,7 @@
                         <Button onMouseClicked="#nextGeneration" text="Przejdź generację" />
                         <Button onMouseClicked="#next10Generations" text="Przejdź o 10 generacji" />
                         <Button onMouseClicked="#next100Generations" text="Przejdź o 100 generacji" />
-                        <Button onMouseClicked="#autoMode" text="Auto" />
+                        <Button fx:id="autoBtn" onMouseClicked="#autoMode" text="Auto" />
                     </children>
                     <padding>
                         <Insets right="10.0" />
@@ -43,6 +43,6 @@
                 <Canvas fx:id="algorithmCanvas" GridPane.columnIndex="1" GridPane.columnSpan="2" />
             </children>
         </GridPane>
-        <Button onAction="#goBack" text="Powrót" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" />
+        <Button fx:id="backBtn" onAction="#goBack" text="Powrót" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" />
     </children>
 </AnchorPane>
