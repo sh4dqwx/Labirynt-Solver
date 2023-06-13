@@ -45,8 +45,8 @@ public class GeneratePageController {
     }
 
     public void generateMaze() {
-        int spinnerValue = mazeSideSpinner.getValue();
-        maze.generateMaze(spinnerValue);
+        int mazeSize = mazeSideSpinner.getValue();
+        maze.generateMaze(mazeSize);
 
         Canvas mazeInCanvas = maze.getMazeInCanvas();
         mazeImage = new WritableImage((int)mazeInCanvas.getWidth(), (int)mazeInCanvas.getHeight());
@@ -60,7 +60,11 @@ public class GeneratePageController {
 
     public void startAlgorithm() {
         if(maze == null) return;
-        _mainApplication.goToAlgorithmPage(maze);
+        int populationSize = populationSizeSpinner.getValue();
+        int maxAutoGeneration = maxAutoGenerationSpinner.getValue();
+        double crossoverProbability = crossoverProbabilitySpinner.getValue();
+        double mutationProbability = mutationProbabilitySpinner.getValue();
+        _mainApplication.goToAlgorithmPage(maze, populationSize, maxAutoGeneration, crossoverProbability, mutationProbability);
     }
 
     public void setMainApplicationReference(MainApplication mainApplication) {

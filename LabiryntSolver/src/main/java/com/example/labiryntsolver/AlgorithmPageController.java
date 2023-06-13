@@ -19,6 +19,7 @@ public class AlgorithmPageController {
     private MainApplication _mainApplication;
     private GeneticAlgorithm geneticAlgorithm;
     private WritableImage mazeImage;
+    private int maxAutoGeneration;
     @FXML
     private GridPane mainGrid;
     @FXML
@@ -31,6 +32,12 @@ public class AlgorithmPageController {
     private Button backBtn;
     @FXML
     private Button autoBtn;
+    @FXML
+    private Button nextGenBtn;
+    @FXML
+    private Button next10GenBtn;
+    @FXML
+    private Button next100GenBtn;
 
     public void initialize() {
         algorithmCanvas.widthProperty().bind(mainGrid.widthProperty().divide(2));
@@ -49,11 +56,12 @@ public class AlgorithmPageController {
         _mainApplication = mainApplication;
     }
 
-    public void preparePage(Maze maze) {
+    public void preparePage(Maze maze, int populationSize, int maxAutoGeneration, double crossoverProbability, double mutationProbability) {
         this.maze = maze;
-        geneticAlgorithm = new GeneticAlgorithm(maze);
+        geneticAlgorithm = new GeneticAlgorithm(maze, populationSize, crossoverProbability, mutationProbability);
         drawMaze(0);
         autoBtn.setDisable(false);
+        this.maxAutoGeneration = maxAutoGeneration;
     }
 
     public void nextGeneration() {
@@ -89,9 +97,13 @@ public class AlgorithmPageController {
     public void autoMode() {
         autoBtn.setDisable(true);
         backBtn.setDisable(true);
+        nextGenBtn.setDisable(true);
+        next10GenBtn.setDisable(true);
+        next100GenBtn.setDisable(true);
         final int refreshInterval = 100;
         new Thread(() -> {
             AtomicReference<Generation> generationRef = new AtomicReference<>();
+            int counter = 0;
 
             do {
                 generationRef.set(geneticAlgorithm.nextGeneration());
@@ -105,9 +117,9 @@ public class AlgorithmPageController {
                         e.printStackTrace();
                     }
                 }
-
+                counter++;
                 System.out.println(generationRef.get().getNumber() + " | " + generationRef.get().getBestScore());
-            } while (generationRef.get().getBestScore() != 1.0);
+            } while (generationRef.get().getBestScore() != 1.0 && counter < maxAutoGeneration);
 
             Platform.runLater(() -> drawMaze(0));
             Platform.runLater(() -> showGeneration(generationRef.get()));
@@ -115,6 +127,14 @@ public class AlgorithmPageController {
             System.out.println(generationRef.get().getNumber());
             System.out.println(generationRef.get() + "\n\n");
             Platform.runLater(() -> backBtn.setDisable(false));
+            if(generationRef.get().getBestScore() != 1.0)
+                Platform.runLater(() -> autoBtn.setDisable(false));
+
+            Platform.runLater(() -> {
+                nextGenBtn.setDisable(false);
+                next10GenBtn.setDisable(false);
+                next100GenBtn.setDisable(false);
+            });
         }).start();
     }
 

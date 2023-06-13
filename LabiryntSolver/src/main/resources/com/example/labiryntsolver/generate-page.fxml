@@ -33,19 +33,19 @@
                 </HBox>
                 <HBox alignment="CENTER" spacing="5.0">
                     <children>
-                        <Label alignment="CENTER" text="Prawd. mutacji" />
-                        <Spinner fx:id="mutationProbabilitySpinner" editable="true" prefHeight="25.0" prefWidth="72.0" />
-                    </children>
-                </HBox>
-                <HBox alignment="CENTER" spacing="5.0">
-                    <children>
                         <Label alignment="CENTER" text="Max generacji" />
                         <Spinner fx:id="maxAutoGenerationSpinner" editable="true" prefHeight="25.0" prefWidth="72.0" />
                     </children>
                 </HBox>
                 <HBox alignment="CENTER" spacing="5.0">
                     <children>
-                        <Label alignment="CENTER" text="Prawdopodobieństwo krzyżowania" />
+                        <Label alignment="CENTER" text="Prawd. mutacji" />
+                        <Spinner fx:id="mutationProbabilitySpinner" editable="true" prefHeight="25.0" prefWidth="72.0" />
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER" spacing="5.0">
+                    <children>
+                        <Label alignment="CENTER" text="Prawd. krzyżowania" />
                         <Spinner fx:id="crossoverProbabilitySpinner" editable="true" prefHeight="25.0" prefWidth="72.0" />
                     </children>
                 </HBox>

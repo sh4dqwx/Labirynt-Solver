@@ -32,9 +32,9 @@ public class MainApplication extends Application {
         algorithmPageController.setMainApplicationReference(this);
     }
 
-    public void goToAlgorithmPage(Maze maze) {
+    public void goToAlgorithmPage(Maze maze, int populationSize, int maxAutoGeneration, double crossoverProbability, double mutationProbability) {
         stage.setScene(algorithmPage);
-        algorithmPageController.preparePage(maze);
+        algorithmPageController.preparePage(maze, populationSize, maxAutoGeneration, crossoverProbability, mutationProbability);
     }
 
     public void goToGeneratePage() {

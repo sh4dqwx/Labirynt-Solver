@@ -7,14 +7,18 @@ import java.text.DecimalFormat;
 import java.util.*;
 
 public class GeneticAlgorithm {
-    private static int POPULATION_SIZE = 50;
+    private int populationSize;
+    private double crossoverProbability, mutationProbability;
     private Maze maze;
     //private ArrayList<Generation> generationList;
     private Generation currentGeneration;
 
-    public GeneticAlgorithm(Maze maze) {
+    public GeneticAlgorithm(Maze maze, int populationSize, double crossoverProbability, double mutationProbability) {
         //generationList = new ArrayList<>();
         this.maze = maze;
+        this.populationSize = populationSize;
+        this.crossoverProbability = crossoverProbability;
+        this.mutationProbability = mutationProbability;
     }
 
     public Generation nextGeneration() {
@@ -34,10 +38,10 @@ public class GeneticAlgorithm {
     }
 
     private Generation startNewGeneration() {
-        Solution[] solutionList = new Solution[POPULATION_SIZE];
-        for(int i=0; i<POPULATION_SIZE; i++)
+        Solution[] solutionList = new Solution[populationSize];
+        for(int i = 0; i< populationSize; i++)
             solutionList[i] = Solution.random(maze.getDistanceFromStartToEnd(), maze);
-        Generation firstGeneration = new Generation(1, solutionList, maze);
+        Generation firstGeneration = new Generation(1, solutionList, maze, crossoverProbability, mutationProbability);
         //generationList.add(firstGeneration);
         currentGeneration = firstGeneration;
         return currentGeneration;
@@ -45,15 +49,17 @@ public class GeneticAlgorithm {
 }
 
 class Generation {
-    private static double CROSSOVER_PROBABILITY = 0.9;
-    private static double MUTATION_PROBABILITY = 0.2;
+    private double crossoverProbability;
+    private double mutationProbability;
     private final long nr;
     private final Solution[] solutionList;
     private final Maze maze;
 
-    public Generation(long nr, Solution[] solutionList, Maze maze) {
+    public Generation(long nr, Solution[] solutionList, Maze maze, double crossoverProbability, double mutationProbability) {
         this.nr = nr;
         this.solutionList = solutionList;
+        this.crossoverProbability = crossoverProbability;
+        this.mutationProbability = mutationProbability;
         Arrays.sort(this.solutionList, new Comparator<Solution>() {
             @Override
             public int compare(Solution o1, Solution o2) {
@@ -104,12 +110,12 @@ class Generation {
         Direction[] directions2 = parent2.getDirectionList();
         Pair<Direction[], Direction[]> directionsPair = new Pair<>(directions1, directions2);
         while(nextSolutionList.size() < solutionList.length) {
-            if(Math.random() > CROSSOVER_PROBABILITY)
+            if(Math.random() > crossoverProbability)
                 continue;
             Pair<Direction[], Direction[]> crossedDirections = crossoverSolutions(directionsPair, minLastGoodIndex);
             Direction[] crossedDirections1 = crossedDirections.getKey();
             Direction[] crossedDirections2 = crossedDirections.getValue();
-            if(Math.random() <= MUTATION_PROBABILITY) {
+            if(Math.random() <= mutationProbability) {
 //                System.out.println("Mutacja");
 //                for(Direction direction : crossedDirections1) System.out.print(direction + " ");
 //                System.out.println();
@@ -118,7 +124,7 @@ class Generation {
 //                System.out.println();
             }
 
-            if(Math.random() <= MUTATION_PROBABILITY) {
+            if(Math.random() <= mutationProbability) {
 //                System.out.println("Mutacja");
 //                for(Direction direction : crossedDirections2) System.out.print(direction + " ");
 //                System.out.println();
@@ -133,7 +139,7 @@ class Generation {
             if(nextSolutionList.size() < solutionList.length)
                 nextSolutionList.add(crossedSolution2);
         }
-        return new Generation(nr + 1, nextSolutionList.toArray(new Solution[0]), maze);
+        return new Generation(nr + 1, nextSolutionList.toArray(new Solution[0]), maze, crossoverProbability, mutationProbability);
     }
 
     private double[] createRouletteWheel(double[] fitnessScores) {

@@ -20,9 +20,9 @@
             <children>
                 <VBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="0">
                     <children>
-                        <Button onMouseClicked="#nextGeneration" text="Przejdź generację" />
-                        <Button onMouseClicked="#next10Generations" text="Przejdź o 10 generacji" />
-                        <Button onMouseClicked="#next100Generations" text="Przejdź o 100 generacji" />
+                        <Button fx:id="nextGenBtn" onMouseClicked="#nextGeneration" text="Przejdź generację" />
+                        <Button fx:id="next10GenBtn" onMouseClicked="#next10Generations" text="Przejdź o 10 generacji" />
+                        <Button fx:id="next100GenBtn" onMouseClicked="#next100Generations" text="Przejdź o 100 generacji" />
                         <Button fx:id="autoBtn" onMouseClicked="#autoMode" text="Auto" />
                     </children>
                     <padding>
